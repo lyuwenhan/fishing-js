@@ -28,7 +28,7 @@ async function login () {
 		variate.username = username;
 		variate.pwd = pwd;
 		func.clear();
-		decode(await func.storage(username, pwd));
+		decode(await storage.getUser(username, pwd));
 		func.print("登录成功")
 	} else {
 		func.printnl("请确认密码: ");
