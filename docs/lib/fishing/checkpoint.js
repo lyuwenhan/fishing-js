@@ -1,5 +1,6 @@
 import variate from "./variate.js";
 import func from "./func.js";
+import storage from "./storage.js"
 
 function decode (data) {
 	variate.dataSaver = {
@@ -7,28 +8,9 @@ function decode (data) {
 		...data ?? {}
 	}
 }
-var store;
-try {
-	store = func.toObject(JSON.parse(window.localStorage.getItem("gameStorage")))
-} catch {
-	store = {}
-}
 
-function getUser (username) {
-	return func.toObject(store[username])
-}
-
-function checkUser (username) {
-	return Boolean(store[username])
-}
-
-function setUser (username, pwd, saveData) {
-	store[username] = saveData;
-	window.localStorage.setItem("gameStorage", JSON.stringify(store))
-}
-
-function save () {
-	setUser(variate.username, variate.pwd, variate.dataSaver)
+async function save () {
+	await storage.setUser(variate.username, variate.pwd, variate.dataSaver)
 }
 async function login () {
 	let username, pwd, pwd2;
@@ -42,11 +24,11 @@ async function login () {
 	}
 	func.printnl("密码: ");
 	pwd = await func.getline(2);
-	if (checkUser(username)) {
+	if (await storage.checkUser(username)) {
 		variate.username = username;
 		variate.pwd = pwd;
 		func.clear();
-		decode(getUser(username, pwd));
+		decode(await func.storage(username, pwd));
 		func.print("登录成功")
 	} else {
 		func.printnl("请确认密码: ");

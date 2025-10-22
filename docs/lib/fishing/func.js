@@ -159,13 +159,6 @@ function time () {
 	return Math.floor(Date.now() / 1e3)
 }
 
-function isObject (obj) {
-	return obj && typeof obj === "object" && !Array.isArray(obj)
-}
-
-function toObject (obj) {
-	return isObject(obj) ? obj : {}
-}
 export default {
 	consoleSize,
 	IOs,
@@ -185,7 +178,5 @@ export default {
 	getline,
 	getname,
 	toStringF,
-	time,
-	isObject,
-	toObject
+	time
 };

@@ -12,7 +12,7 @@ async function main () {
 	while(!await checkpoint.login()){
 		await func.sleep(.5);
 	}
-	checkpoint.save();
+	await checkpoint.save();
 	await func.sleep(.5);
 	while (true) {
 		func.clear();
@@ -40,10 +40,10 @@ async function main () {
 				break
 			} else if (type === "5") {
 				func.clear();
-				throw new Error("Exited")
+				return;
 			}
 		}
-		checkpoint.save();
+		await checkpoint.save();
 		await func.sleep(.5)
 	}
 }
