@@ -86,7 +86,17 @@ import("./fishing/ready.js").then(fishing => {
 	window.addEventListener("resize", () => {
 		fitAddon.fit()
 	});
-	fishing.setup()
+	const start = async ()=>{
+		while(true){
+			try{
+				await fishing.setup();
+			}catch(e){
+				console.log(e);
+				break;
+			}
+		}
+	}
+	start();
 }).catch(e => {
 	term.write(`\r\n\r\n[m${e}\r\n`);
 	throw e
